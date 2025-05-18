@@ -45,8 +45,9 @@ Serví el HTML con Python:
 ```bash
 cd frontend/
 python -m http.server 5500
-Accedé desde tu navegador a: http://localhost:5500
 ```
+Accedé desde tu navegador a: http://localhost:5500
+
 
 ### 🌐 Importante: CORS
 Para permitir llamadas del frontend, se configuró en main.py:
@@ -63,3 +64,22 @@ app.add_middleware(
 ```
 Si cambias de puerto o hacés deploy, asegurate de actualizar esto.
 
+
+### 📦 Estructura del proyecto
+```bash
+.
+├── app/
+│   ├── main.py
+│   ├── api/v1/
+│   ├── models/
+│   └── services/
+├── tests/
+├── frontend/
+│   └── index.html
+├── deploy/
+│   └── docker-compose.yml
+├── requirements.txt
+├── pytest.ini
+├── .gitignore
+└── README.md
+```
