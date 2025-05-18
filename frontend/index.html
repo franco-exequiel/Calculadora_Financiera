@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de Interés Compuesto</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+    label { display: block; margin-top: 10px; }
+    input, select, button { width: 100%; padding: 8px; margin-top: 5px; }
+    pre { background: #f4f4f4; padding: 10px; margin-top: 20px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Calculadora de Interés Compuesto</h1>
+  <form id="formulario">
+    <label>Capital inicial:</label>
+    <input type="number" name="capital_inicial" step="any" required>
+
+    <label>Interés anual (%):</label>
+    <input type="number" name="interes_anual" step="any" required>
+
+    <label>Duración (en años):</label>
+    <input type="number" name="duracion_anios" step="any" required>
+
+    <label>Frecuencia de capitalización:</label>
+    <select name="frecuencia_capitalizacion">
+      <option>anual</option>
+      <option>semestral</option>
+      <option>trimestral</option>
+      <option>mensual</option>
+      <option>diaria</option>
+    </select>
+
+    <label>Agregado extra por periodo:</label>
+    <input type="number" name="agregado_extra" step="any" required>
+
+    <label>Frecuencia de agregado extra:</label>
+    <select name="frecuencia_agregado">
+      <option>ninguna</option>
+      <option>anual</option>
+      <option>semestral</option>
+      <option>trimestral</option>
+      <option>mensual</option>
+      <option>diaria</option>
+    </select>
+
+    <button type="submit">Calcular</button>
+  </form>
+
+  <h2>Resultado:</h2>
+  <pre id="resultado">Esperando cálculo...</pre>
+
+  <script>
+    document.getElementById('formulario').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const datos = Object.fromEntries(new FormData(e.target));
+      for (let campo in datos) {
+        if (!isNaN(datos[campo])) {
+          datos[campo] = Number(datos[campo]);
+        }
+      }
+      const resp = await fetch('http://localhost:8000/api/v1/calcular', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      });
+      const resultado = await resp.json();
+      document.getElementById('resultado').textContent = JSON.stringify(resultado, null, 2);
+    });
+  </script>
+</body>
+</html>
