@@ -1,6 +1,6 @@
 # 📈 API Calculadora Financiera (v0.1.0)
-
-API REST que calcula interés compuesto incluyendo aportes periódicos opcionales.
+### 🧾 Descripción
+Calculadora Financiera API es un servicio REST desarrollado en Python con FastAPI, que permite calcular el crecimiento del capital a través de interés compuesto. Admite aportes periódicos opcionales y devuelve tanto el monto final como un desglose por período. Ideal para simulaciones de inversión, educación financiera o planificación personal.
 
 ## 🚀 Cómo correr el proyecto
 
@@ -20,10 +20,11 @@ docker-compose up --build
 # API disponible en: http://localhost:8000/docs
 
 ### 📬 Endpoint
+```bash
 POST /api/v1/calcular
 Body JSON: capital inicial, tasa anual, duración, frecuencia, etc.
 Devuelve el monto final y el detalle por período.
-
+```
 
 ### 🧪 Tests
 ```bash
