@@ -59,7 +59,7 @@
           datos[campo] = Number(datos[campo]);
         }
       }
-      const resp = await fetch('http://localhost:8000/api/v1/calcular', {
+      const resp = await fetch('http://127.0.0.1:8000/api/v1/calcular', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datos)
