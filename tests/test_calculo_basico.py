@@ -1,19 +1,16 @@
-from app.models.calculo import CalculoRequest
+from app.models.calculo import CalculoRequest, PeriodoCapitalizacion
 from app.services.calculadora import calcular_interes_compuesto
 
 
-def test_calculo_basico():
+def test_calculo_sin_aportes():
     req = CalculoRequest(
         capital_inicial=10000,
-        interes_anual=12,
-        duracion_anios=1,
-        frecuencia_capitalizacion="mensual",
-        agregado_extra=0,
-        frecuencia_agregado="ninguna"
+        tasa_interes_anual=12,
+        anios=1,
+        tipo_capitalizacion=PeriodoCapitalizacion.mensual,
+        aportes_periodicos=None,
+        cada_cuanto_aporta=None
     )
     resultado = calcular_interes_compuesto(req)
-    assert resultado["monto_final"] > 10000
-    assert len(resultado["detalle"]) == 12
-
-
-
+    assert resultado["capital_final"] > 10000
+    assert "detalle" not in resultado or len(resultado["detalle"]) == 0

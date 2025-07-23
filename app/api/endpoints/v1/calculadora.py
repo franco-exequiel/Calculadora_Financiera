@@ -6,5 +6,6 @@ router = APIRouter()
 
 @router.post("/calcular", response_model=CalculoResponse)
 def calcular(data: CalculoRequest):
+    
     resultado = calcular_interes_compuesto(data)
     return resultado
