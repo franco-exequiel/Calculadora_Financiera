@@ -1,0 +1,59 @@
+<html lang="es" data-theme="dark">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Interés Compuesto</title>
+  <link rel="stylesheet" href="statics/css/styles.css">
+</head>
+
+<body>
+  <h1>Calculadora de Interés Compuesto</h1>
+
+  <button id="theme-toggle">Cambiar Tema</button>
+
+  <form id="calc-form">
+    <label>Capital Inicial:</label>
+    <input type="number" step="0.01" id="capital" required><br>
+
+    <label>Tasa de Interés (% anual):</label>
+    <input type="number" step="0.01" id="tasa" required><br>
+
+    <label>Años:</label>
+    <input type="number" id="anios" required><br>
+
+    <label>Tipo de Capitalización:</label>
+    <select id="capitalizacion" required>
+      <option value="mensual">Mensual</option>
+      <option value="trimestral">Trimestral</option>
+      <option value="semestral">Semestral</option>
+      <option value="anual">Anual</option>
+    </select><br>
+
+    <label>Aportes Periódicos (opcional):</label>
+    <input type="number" step="0.01" id="aportes"><br>
+
+    <label>Frecuencia de Aporte:</label>
+    <select id="frecuencia">
+      <option value="">(ninguno)</option>
+      <option value="mensual">Mensual</option>
+      <option value="bimestral">Bimestral</option>
+      <option value="trimestral">Trimestral</option>
+      <option value="cuatrimestral">Cuatrimestral</option>
+      <option value="semestral">Semestral</option>
+      <option value="anual">Anual</option>
+    </select><br>
+
+    <button type="submit">Calcular</button>
+    <label>Exportar como:</label>
+<select id="formato-export">
+  <option value="csv">CSV</option>
+  <option value="excel">Excel</option>
+</select>
+<button type="button" id="btn-exportar">Exportar</button>
+  </form>
+
+  <div id="resultado"></div>
+
+  <script src="/statics/js/main.js"></script>
+</body>
+</html>
