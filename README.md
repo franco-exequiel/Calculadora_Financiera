@@ -7,6 +7,7 @@ Ideal para simulaciones de inversión, educación financiera o planificación pe
 
 ---
 
+
 ## 🚀 Características
 
 - Cálculo de interés compuesto:
@@ -156,5 +157,5 @@ Incluye:
 
 ## ✨ Autor
 
-**Franco Exequie**  
+**Franco Exequiel**  
 Desarrollador backend Python | API REST | Automatización | Enfoque en clean code y escalabilidad 🚀
