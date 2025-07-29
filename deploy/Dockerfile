@@ -1,14 +1,16 @@
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 # Crear directorio de trabajo
 WORKDIR /app
 
+# Instalar dependencias
+COPY ./requirements.txt /app/
+RUN pip install --update pip
+RUN pip install --no-cache-dir -r requirements.txt
+
 # Copiar archivos del proyecto
 COPY ./app /app/app
-COPY ./requirements.txt /app/
 
-# Instalar dependencias
-RUN pip install --no-cache-dir -r requirements.txt
 
 # Exponer el puerto por defecto de uvicorn
 EXPOSE 8000

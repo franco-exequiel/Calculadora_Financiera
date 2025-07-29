@@ -25,9 +25,13 @@ class InteresCompuestoBase:
 class InteresCompuestoSimple(InteresCompuestoBase):
     def calcular(self):
         monto_final = self.capital_inicial * (1 + self.tasa_periodica) ** self.total_periodos
+        detalle_df = pd.DataFrame(columns=["capital_final", "ganancia_total"])
+        detalle_df.loc[len(detalle_df)] = [round(monto_final, 2),round(monto_final-self.capital_inicial, 2)]
+        detalle = detalle_df.to_dict(orient="records")
         return {
             "capital_final": round(monto_final, 2),
-            "ganancia_total": round(monto_final - self.capital_inicial, 2)
+            "ganancia_total": round(monto_final - self.capital_inicial, 2),
+            "detalle":detalle
         }
     
 
@@ -72,6 +76,7 @@ class InteresCompuestoConAportes(InteresCompuestoBase):
                     capital_acumulado += interes_devengado
                     ganancia_total += interes_devengado
                     df_detalle.loc[len(df_detalle)] = [int(anio+1),periodo, capital_acumulado, interes_devengado,ganancia_total, capital_anual]
+
                 if (mes+1) in meses_que_agrega:
                     capital_acumulado += self.aportes_periodicos
                     capital_anual += self.aportes_periodicos

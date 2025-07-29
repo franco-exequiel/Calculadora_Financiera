@@ -1,86 +1,160 @@
-# 📈 API Calculadora Financiera (v0.1.0)
-### 🧾 Descripción
-Calculadora Financiera API es un servicio REST desarrollado en Python con FastAPI, que permite calcular el crecimiento del capital a través de interés compuesto. Admite aportes periódicos opcionales y devuelve tanto el monto final como un desglose por período. Ideal para simulaciones de inversión, educación financiera o planificación personal.
 
+# 📈 API de Calculadora Financiera
+
+Calculadora Financiera API es un servicio REST desarrollado en Python con FastAPI. Permite calcular el crecimiento del capital a través del interés compuesto, incluyendo aportes periódicos opcionales. Devuelve el monto final, la ganancia total y un desglose por período. También ofrece funcionalidades de exportación y un frontend básico.
+
+Ideal para simulaciones de inversión, educación financiera o planificación personal. Incluye frontend, backend con FastAPI y exportación de resultados a CSV y Excel.
+
+---
+
+## 🚀 Características
+
+- Cálculo de interés compuesto:
+  - Con o sin aportes periódicos
+  - Capitalización: mensual, trimestral, semestral, anual
+- Frontend simple embebido con selector de tema (claro/oscuro)
+- Exportación de resultados:
+  - CSV (`.csv`)
+  - Excel (`.xlsx`)
+- API RESTful documentada automáticamente (Swagger/OpenAPI)
+
+---
+
+## 🛠️ Tecnologías
+
+- **Backend**: FastAPI + Pydantic + Pandas
+- **Frontend**: HTML + JS Vanilla
+- **Persistencia en memoria** (sin DB)
+- **Tests**: `pytest` + `TestClient`
+- **Contenerización**: Docker + Uvicorn
+
+---
+
+## 🧪 Ejemplo de uso
 ## 🚀 Cómo correr el proyecto
 
-### Opción 1: Localmente (sin Docker)
+### ✅ Opción 1: Localmente (sin Docker)
 
 ```bash
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
+### 🐳 Opción 2: Usando Docker
 
-### Opción 2: Usando Docker
 ```bash
 cd deploy
 docker-compose up --build
 ```
-# API disponible en: http://localhost:8000/docs
 
-### 📬 Endpoint
+Una vez iniciado, accedé a:
+
+- API: http://localhost:8000/docs
+- Frontend: http://localhost:8000
+
+---
+
+### Acceder
+
+- [http://localhost:8000](http://localhost:8000) → Frontend
+- [http://localhost:8000/docs](http://localhost:8000/docs) → Swagger UI 
+
+---
+
+### Cálculo de interés compuesto (POST `/api/v1/calcular`)
+
+```json
+{
+  "capital_inicial": 10000,
+  "tasa_interes_anual": 10.5,
+  "anios": 20,
+  "tipo_capitalizacion": "semestral",
+  "aportes_periodicos": 500,
+  "cada_cuanto_aporta": "mensual"
+}
+```
+
+### Exportar resultado en CSV
+
+```
+POST /api/v1/calcular/csv?descargar=true
+```
+
+### Exportar resultado en Excel
+
+```
+POST /api/v1/calcular/excel?descargar=true
+```
+
+---
+
+## 🧪 Tests
+
 ```bash
-POST /api/v1/calcular
-Body JSON: capital inicial, tasa anual, duración, frecuencia, etc.
-Devuelve el monto final y el detalle por período.
+pytest tests/
 ```
 
-### 🧪 Tests
-```bash
-pytest
-```
+Incluye tests para:
+- Lógica de cálculo simple y con aportes.
+- Exportación CSV
+- Exportación Excel
 
-### 🧠 Visión a Futuro
-* Exportar resultados a Excel o CSV.
-* Agregar simulaciones con inflación.
-* Frontend con Streamlit o React.
-* Deploy en la nube.
+---
+## 💻 Frontend Estático
 
-### 💻 Frontend mínimo para testing manual
-Puedes testear la API usando un archivo HTML estático que haga peticiones fetch.
+Ubicado en `app/frontend/index.html`, este formulario simple permite probar la API desde el navegador.
 
-### 🔧 Cómo probar localmente
-Serví el HTML con Python:
+Incluye:
+- Inputs de cálculo.
+- Selector de aportes opcionales.
+- Botón de cambio de tema claro/oscuro (🌙 / ☀️).
+- Estilos personalizados desde `app/frontend/statics/css/styles.css`.
+- Lógica en `app/frontend/statics/js/main.js`.
 
-```bash
-cd frontend/
-python -m http.server 5500
-```
-Accedé desde tu navegador a: http://localhost:5500
+---
+## 📂 Estructura del Proyecto
 
-
-### 🌐 Importante: CORS
-Para permitir llamadas del frontend, se configuró en main.py:
-
-```bash python
-from fastapi.middleware.cors import CORSMiddleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5500"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-```
-Si cambias de puerto o hacés deploy, asegurate de actualizar esto.
-
-
-### 📦 Estructura del proyecto
 ```bash
 .
 ├── app/
 │   ├── main.py
-│   ├── api/v1/
-│   ├── models/
-│   └── services/
+│   ├── api/
+│   │   └── endpoints/v1/
+│   │       ├── calculadora.py
+│   │       └── exportar.py
+│   ├── services/
+│   │   ├── calculadora.py
+│   │   └── exportador.py
+│   └── frontend/
+│       ├── index.html
+│       └── statics/
+│           ├── css/
+│           │   └── styles.css
+│           └── js/
+│               └── main.js
 ├── tests/
-├── frontend/
-│   └── index.html
+│   ├── test_calculo_basico.py
+│   ├── test_calculo_interes_compuesto.py
+│   └── test_exportar_csv.py
 ├── deploy/
 │   └── docker-compose.yml
 ├── requirements.txt
 ├── pytest.ini
-├── .gitignore
 └── README.md
 ```
+
+---
+
+## 🧠 Visión a Futuro
+
+- 📊 Gráficos con Chart.js o similar.
+- 🔐 Autenticación JWT una vez integrada con HomeBanking API.
+
+---
+
+
+
+## ✨ Autor
+
+**Franco Exequie**  
+Desarrollador backend Python | API REST | Automatización | Enfoque en clean code y escalabilidad 🚀

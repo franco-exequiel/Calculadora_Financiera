@@ -59,7 +59,7 @@ class DetallePeriodo(BaseModel):
 class CalculoResponse(BaseModel):
     capital_final: Decimal
     ganancia_total: Decimal
-    detalle: Optional[List[DetallePeriodo]] = None
+    detalle: Optional[Union[List[DetallePeriodo], List[dict]]] = None
 
     model_config = ConfigDict(
         json_schema_extra={

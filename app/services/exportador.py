@@ -1,15 +1,21 @@
-import csv
-import io
-from app.models.calculo import CalculoRequest
-from app.services.calculadora import calcular_interes_compuesto
+import pandas as pd
+from io import BytesIO
 
-def generar_csv(data: CalculoRequest) -> bytes:
-    resultado = calcular_interes_compuesto(data)
-    detalle = resultado["detalle"]
+class ExportadorService:
 
-    output = io.StringIO()
-    writer = csv.DictWriter(output, fieldnames=["periodo", "interes_generado", "capital_total"])
-    writer.writeheader()
-    writer.writerows(detalle)
+    @staticmethod
+    def generar_csv(detalle: list) -> BytesIO:
+        df = pd.DataFrame(detalle)
+        buffer = BytesIO()
+        df.to_csv(buffer, index=False)
+        buffer.seek(0)
+        return buffer
 
-    return output.getvalue().encode("utf-8")
+    @staticmethod
+    def generar_excel(detalle: list) -> BytesIO:
+        df = pd.DataFrame(detalle)
+        buffer = BytesIO()
+        with pd.ExcelWriter(buffer, engine="openpyxl") as writer:
+            df.to_excel(writer, index=False, sheet_name="Cálculo")
+        buffer.seek(0)
+        return buffer
