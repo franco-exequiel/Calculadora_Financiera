@@ -80,21 +80,45 @@ No requiere base de datos ni credenciales externas. Servicio completamente state
 
 ```bash
 .
+├── github/
+│   ├── workflows/
+│   │   └── ci.yml
 ├── app/
-│   ├── api/endpoints/v1/
-│   ├── services/
+│   ├── main.py
+│   ├── api/
+│   │   └── endpoints/
+│   │       └── v1/
+│   │           ├── calculadora.py
+│   │           └── exportar.py
 │   ├── models/
-│   └── main.py
-├── frontend/
-│   └── index.html
+│   │   ├── calculo.py
+│   ├── services/
+│   │   ├── calculadora.py
+│   │   └── exportador.py
+│   ├── frontend/
+│   │    ├── index.html
+│   │    └── statics/
+│   │        ├── css/
+│   │        │   └── styles.css
+│   │        └── js/
+│   │            └── main.js
+│   ├── deploy/
+│   │   ├── .dockerignore
+│   │   ├── docker-compose.yml
+│   │   └── Dockerfile
 ├── tests/
+│   ├── conftest.py
+│   ├── test_calculo_basico.py
+│   ├── test_calculo_interes_compuesto.py
+│   └── test_exportar_csv.py
+│   └── test_exportar_excel.py
+│   └── test_exportar_validaciones.py
 ├── deploy/
-│   ├── docker-compose.yml
-│   └── Dockerfile
-├── .github/workflows/ci.yml
+│   └── docker-compose.yml
 ├── requirements.txt
-├── Makefile
-└── README.md
+├── pytest.ini
+└── DEVELOPER_GUIDE_es.md
+└── README_es.md
 ```
 
 ---
@@ -105,4 +129,4 @@ Este microservicio puede integrarse en cualquier sistema que requiera cálculos 
 
 ---
 
-🔙 Volver al [README principal](./README.md)
+🔙 Volver al [README_es](./README_es.md)
