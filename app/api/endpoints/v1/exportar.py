@@ -18,9 +18,6 @@ def calcular_y_exportar_csv(
 
     # Si el modelo simple no trae detalle, devolvemos CSV vacío o error claro
     detalle = resultado.get("detalle") or []
-    #Validamos que haya datos para exportar
-    if not detalle:
-        raise ValueError("No hay datos detallados para exportar.")
     # Si es una lista de modelos Pydantic, convertirlos a dict
     detalle = [d if isinstance(d, dict) else d.model_dump() for d in detalle]
     
@@ -48,8 +45,7 @@ def calcular_y_exportar_excel(
     resultado = calcular_interes_compuesto(req)
 
     detalle = resultado.get("detalle") or []
-    if not detalle:
-        raise ValueError("No hay datos detallados para exportar.")
+    
     
     detalle = [d if isinstance(d, dict) else d.model_dump() for d in detalle]
     excel_buffer = ExportadorService.generar_excel(detalle)

@@ -7,7 +7,6 @@ Ideal para simulaciones de inversión, educación financiera o planificación pe
 
 ---
 
-
 ## 🚀 Características
 
 - Cálculo de interés compuesto:
@@ -31,7 +30,6 @@ Ideal para simulaciones de inversión, educación financiera o planificación pe
 
 ---
 
-## 🧪 Ejemplo de uso
 ## 🚀 Cómo correr el proyecto
 
 ### ✅ Opción 1: Localmente (sin Docker)
@@ -100,7 +98,10 @@ Incluye tests para:
 - Exportación CSV
 - Exportación Excel
 
+✔️ **Cobertura de tests: 100%**
+
 ---
+
 ## 💻 Frontend Estático
 
 Ubicado en `app/frontend/index.html`, este formulario simple permite probar la API desde el navegador.
@@ -113,6 +114,7 @@ Incluye:
 - Lógica en `app/frontend/statics/js/main.js`.
 
 ---
+
 ## 📂 Estructura del Proyecto
 
 ```bash
@@ -153,9 +155,10 @@ Incluye:
 
 ---
 
-
-
 ## ✨ Autor
 
 **Franco Exequiel**  
 Desarrollador backend Python | API REST | Automatización | Enfoque en clean code y escalabilidad 🚀
+
+---
+Para detalles técnicos, ver [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md)

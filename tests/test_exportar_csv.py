@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 from app.main import app
 
+
 client = TestClient(app)
 
 def test_calcular_y_exportar_csv_texto():
@@ -55,3 +56,30 @@ def test_calcular_y_exportar_csv_descarga():
     csv_text = response.text
     # Validar contenido
     assert "anio" in csv_text
+
+
+def test_exportar_csv_sin_detalle():
+    payload = {
+        "capital_inicial": 10000,
+        "tasa_interes_anual": 10,
+        "tipo_capitalizacion": "mensual",
+        "aportes_periodicos": None,
+        "cada_cuanto_aporta": None,
+        "anios": 1
+    }
+
+    # Paso 1: calcular normalmente (sin generar detalle por período)
+    response = client.post("/api/v1/calcular", json=payload)
+    assert response.status_code == 200
+
+    # Paso 2: exportar resultados en CSV
+    response_export = client.post("/api/v1/calcular/csv", json=payload)
+    assert response_export.status_code == 200
+
+    # Verificar contenido del CSV
+    csv_text = response_export.text
+    assert "capital_final" in csv_text
+    assert "ganancia_total" in csv_text
+    assert "anio" not in csv_text  # Confirmar que no es un detalle por período
+
+
